@@ -9,7 +9,7 @@ import fs from 'fs';
 export interface GongApiClientOptions {
   /**
    * Base URL for the Gong API.
-   * @default 'https://app.gong.io'
+   * @default 'https://api.gong.io'
    */
   baseUrl?: string;
   
@@ -49,7 +49,7 @@ export interface GongApiClientOptions {
  */
 export async function initGongApiClient(options: GongApiClientOptions = {}): Promise<any> {
   const {
-    baseUrl = process.env.GONG_BASE_URL || 'https://app.gong.io',
+    baseUrl = process.env.GONG_BASE_URL || 'https://api.gong.io',
     apiKey = process.env.GONG_API_KEY,
     accessKey = process.env.GONG_ACCESS_KEY,
     specFile = process.env.GONG_SPEC_FILE || 'gong-openapi.json',

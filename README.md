@@ -44,7 +44,7 @@ Create a `.env` file in your project root:
 
 ```
 # Gong API Configuration
-GONG_BASE_URL=https://your-instance.api.gong.io
+GONG_BASE_URL=https://api.gong.io
 GONG_API_KEY=your-api-key
 GONG_ACCESS_KEY=your-access-key
 
@@ -79,7 +79,7 @@ import { initGongApiClient } from 'gong-api-client';
 async function main() {
   // Initialize the client with explicit options
   const gongClient = await initGongApiClient({
-    baseUrl: 'https://your-instance.api.gong.io',
+    baseUrl: 'https://api.gong.io',
     apiKey: 'your-api-key',
     accessKey: 'your-access-key'
   });
@@ -208,7 +208,7 @@ Initializes the Gong API client.
 
 #### Options
 
-- `baseUrl` (string, optional): Base URL for the Gong API. Default: 'https://app.gong.io'
+- `baseUrl` (string, optional): Base URL for the Gong API. Default: 'https://api.gong.io'
 - `apiKey` (string, optional): API key for authentication.
 - `accessKey` (string, optional): Access key for authentication.
 - `specFile` (string, optional): Path to the API specification file. Default: 'gong-openapi.json'
