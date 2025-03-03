@@ -1,0 +1,55 @@
+{
+  "name": "gong-openapi-autogen",
+  "version": "1.0.0",
+  "description": "A Node.js library that automatically generates a TypeScript client for the Gong API from the OpenAPI specification",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "prepare": "npm run build",
+    "start": "ts-node src/index.ts",
+    "download": "ts-node src/downloadGongApiSpec.ts",
+    "generate": "ts-node src/generateGongApiClient.ts",
+    "example": "ts-node examples/basic-usage.ts"
+  },
+  "keywords": [
+    "gong",
+    "api",
+    "openapi",
+    "typescript",
+    "client",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "@types/node": "^22.13.9",
+    "axios": "^1.8.1",
+    "dotenv": "^16.4.7",
+    "openapi-typescript-codegen": "^0.29.0"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/gong-openapi-autogen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/gong-openapi-autogen/issues"
+  },
+  "homepage": "https://github.com/yourusername/gong-openapi-autogen#readme"
+}
