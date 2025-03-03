@@ -1,5 +1,5 @@
 {
-  "name": "gong-openapi-autogen",
+  "name": "gong-api-client",
   "version": "1.0.0",
   "description": "A Node.js library that automatically generates a TypeScript client for the Gong API from the OpenAPI specification",
   "main": "dist/index.js",
@@ -27,7 +27,7 @@
     "client",
     "generator"
   ],
-  "author": "",
+  "author": "Aaron Bockelie",
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {
@@ -46,10 +46,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/gong-openapi-autogen.git"
+    "url": "https://github.com/aaronsb/gong-api-client.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/gong-openapi-autogen/issues"
+    "url": "https://github.com/aaronsb/gong-api-client/issues"
   },
-  "homepage": "https://github.com/yourusername/gong-openapi-autogen#readme"
+  "homepage": "https://github.com/aaronsb/gong-api-client#readme"
 }
