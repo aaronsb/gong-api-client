@@ -2,6 +2,10 @@
 
 A Node.js library that automatically generates a TypeScript client for the Gong API from the OpenAPI specification.
 
+This package provides two approaches to working with the Gong API:
+1. **Generated TypeScript Client**: A fully typed client generated from the OpenAPI specification
+2. **Direct HTTP Requests**: A simpler approach using direct HTTP requests with basic authentication
+
 ## Features
 
 - Automatically downloads the latest Gong API specification
@@ -9,12 +13,26 @@ A Node.js library that automatically generates a TypeScript client for the Gong 
 - Provides a simple interface for interacting with the Gong API
 - Supports authentication with API key and access key
 - Includes TypeScript type definitions for all API requests and responses
+- Offers a direct HTTP request approach for simpler use cases
 
 ## Installation
 
 ```bash
 npm install gong-api-client
 ```
+
+For the direct HTTP approach, you only need axios:
+
+```bash
+npm install axios
+```
+
+## Authentication
+
+The Gong API uses basic authentication with your API credentials:
+
+- **Access Key**: Used as the username
+- **Access Key Secret**: Used as the password
 
 ## Configuration
 
@@ -73,7 +91,49 @@ async function main() {
 
 ## Usage
 
-### Basic Usage
+### Direct HTTP Approach
+
+This simpler approach uses direct HTTP requests with basic authentication:
+
+```javascript
+const axios = require('axios');
+
+// Your Gong API credentials
+const baseUrl = 'https://api.gong.io';
+const accessKey = 'YOUR_ACCESS_KEY';
+const accessKeySecret = 'YOUR_ACCESS_KEY_SECRET';
+
+// Create a client with basic authentication
+const gongClient = axios.create({
+  baseURL: baseUrl,
+  auth: {
+    username: accessKey,
+    password: accessKeySecret
+  },
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+// Make API requests
+async function getUsers() {
+  try {
+    const response = await gongClient.get('/v2/users');
+    console.log(`Retrieved ${response.data.records.totalRecords} users`);
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    if (error.response) {
+      console.error('Status:', error.response.status);
+      console.error('Data:', error.response.data);
+    }
+  }
+}
+
+getUsers();
+```
+
+### Generated Client Approach
 
 ```typescript
 import { initGongApiClient } from 'gong-api-client';
@@ -184,6 +244,13 @@ Generates TypeScript client code from the Gong API specification.
 
 A promise that resolves when the client code has been generated.
 
+## Common API Endpoints
+
+- `/v2/users` - Get a list of users
+- `/v2/users/{userId}` - Get details for a specific user
+- `/v2/calls` - Get a list of calls
+- `/v2/calls/{callId}` - Get details for a specific call
+
 ## API Structure
 
 The generated client provides direct access to all services and models from the Gong API:
@@ -212,6 +279,19 @@ The client also provides TypeScript interfaces for all data models used in the A
 
 - Request and response types for all API operations
 - Data models for entities like calls, users, statistics, etc.
+
+## Best Practices
+
+1. **Error Handling**: Always implement proper error handling for API requests
+2. **Rate Limiting**: Be mindful of API rate limits
+3. **Pagination**: Use pagination for endpoints that return large datasets
+4. **Security**: Keep your API credentials secure and never commit them to version control
+
+## Troubleshooting
+
+- If you receive a 401 Unauthorized error, check that your API credentials are correct
+- If you're using the generated client and encounter errors, try the direct HTTP approach with axios
+- Make sure your API key has the necessary permissions for the endpoints you're trying to access
 
 ## Development
 
