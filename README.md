@@ -1,4 +1,4 @@
-# Gong OpenAPI Client Generator
+# Gong API Client
 
 A Node.js library that automatically generates a TypeScript client for the Gong API from the OpenAPI specification.
 
@@ -13,7 +13,7 @@ A Node.js library that automatically generates a TypeScript client for the Gong 
 ## Installation
 
 ```bash
-npm install gong-openapi-autogen
+npm install gong-api-client
 ```
 
 ## Configuration
@@ -38,7 +38,7 @@ GONG_ACCESS_KEY=your-access-key
 Then load the environment variables in your code:
 
 ```typescript
-import { initGongApiClient } from 'gong-openapi-autogen';
+import { initGongApiClient } from 'gong-api-client';
 import * as dotenv from 'dotenv';
 
 // Load environment variables from .env file
@@ -56,7 +56,7 @@ async function main() {
 ### Direct Configuration
 
 ```typescript
-import { initGongApiClient } from 'gong-openapi-autogen';
+import { initGongApiClient } from 'gong-api-client';
 
 async function main() {
   // Initialize the client with explicit options
@@ -76,7 +76,7 @@ async function main() {
 ### Basic Usage
 
 ```typescript
-import { initGongApiClient } from 'gong-openapi-autogen';
+import { initGongApiClient } from 'gong-api-client';
 import * as dotenv from 'dotenv';
 
 // Load environment variables from .env file
@@ -107,7 +107,7 @@ main();
 ### Advanced Usage
 
 ```typescript
-import { initGongApiClient, downloadAndSaveGongSpec, generateGongApiClient } from 'gong-openapi-autogen';
+import { initGongApiClient, downloadAndSaveGongSpec, generateGongApiClient } from 'gong-api-client';
 import * as dotenv from 'dotenv';
 import path from 'path';
 
@@ -227,6 +227,45 @@ npm run build
 npm test
 ```
 
+## Continuous Integration and Deployment
+
+This project uses GitHub Actions for continuous integration and deployment.
+
+### CI Workflow
+
+The CI workflow runs on every push to the main branch and on pull requests. It:
+
+- Builds the project on multiple Node.js versions
+- Runs tests (when added)
+
+### Publishing to npm
+
+The package is automatically published to npm when:
+
+- Changes are pushed to the main branch that modify package.json
+- A new GitHub release is created
+- The workflow is manually triggered
+
+To set up automatic publishing:
+
+1. Generate an npm access token:
+   - Go to npmjs.com and log in
+   - Click on your profile icon → Access Tokens
+   - Click "Generate New Token" (select "Automation" type)
+   - Copy the generated token
+
+2. Add the token to GitHub repository secrets:
+   - Go to your GitHub repository
+   - Click on Settings → Secrets and variables → Actions
+   - Click "New repository secret"
+   - Name: `NPM_TOKEN`
+   - Value: paste your npm token
+   - Click "Add secret"
+
 ## License
 
 MIT
+
+## Author
+
+Aaron Bockelie
