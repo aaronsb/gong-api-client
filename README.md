@@ -284,8 +284,48 @@ The client also provides TypeScript interfaces for all data models used in the A
 
 1. **Error Handling**: Always implement proper error handling for API requests
 2. **Rate Limiting**: Be mindful of API rate limits
-3. **Pagination**: Use pagination for endpoints that return large datasets
+3. **Pagination**: Use cursor-based pagination for endpoints that return large datasets
 4. **Security**: Keep your API credentials secure and never commit them to version control
+
+## Pagination
+
+The Gong API uses cursor-based pagination for endpoints that return large datasets. When making a request to an endpoint that supports pagination:
+
+1. The initial response includes a `records` object with pagination information:
+   ```json
+   {
+     "records": {
+       "totalRecords": 150,
+       "currentPageSize": 50,
+       "currentPageNumber": 1,
+       "cursor": "eyJpZCI6MTIzNDV9"
+     },
+     "data": [...]
+   }
+   ```
+
+2. To retrieve the next page of results, make the same request again but include the `cursor` value from the previous response:
+   ```typescript
+   // First request
+   const firstPage = await gongClient.CallsService.listCalls({
+     fromDateTime: '2023-01-01T00:00:00Z',
+     toDateTime: '2023-01-31T23:59:59Z'
+   });
+
+   // If there are more records to retrieve
+   if (firstPage.records?.cursor) {
+     // Second request with cursor
+     const secondPage = await gongClient.CallsService.listCalls({
+       fromDateTime: '2023-01-01T00:00:00Z',
+       toDateTime: '2023-01-31T23:59:59Z',
+       cursor: firstPage.records.cursor
+     });
+   }
+   ```
+
+3. Continue this process until the response no longer includes a `cursor` value, indicating that all records have been retrieved.
+
+This pagination method is more efficient than traditional offset-based pagination and ensures consistent results even when the underlying data changes between requests.
 
 ## Troubleshooting
 

@@ -73,6 +73,42 @@ async function main() {
     // const stats = await gongClient.StatsService.getStats();
     // console.log('Statistics:', stats);
     
+    // Example 4: Using cursor-based pagination to get all calls
+    // console.log('\nFetching all calls with pagination...');
+    // 
+    // // Define time range for the last 30 days
+    // const now = new Date();
+    // const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    // 
+    // // Function to get all calls using pagination
+    // async function getAllCalls() {
+    //   const allCalls = [];
+    //   let cursor = undefined;
+    //   
+    //   do {
+    //     // Make API call with cursor if available
+    //     const response = await gongClient.CallsService.listCalls({
+    //       fromDateTime: thirtyDaysAgo.toISOString(),
+    //       toDateTime: now.toISOString(),
+    //       cursor: cursor
+    //     });
+    //     
+    //     // Add calls from this page to our collection
+    //     if (response.calls && response.calls.length > 0) {
+    //       allCalls.push(...response.calls);
+    //       console.log(`Retrieved page with ${response.calls.length} calls (total: ${allCalls.length})`);
+    //     }
+    //     
+    //     // Get cursor for next page if available
+    //     cursor = response.records?.cursor;
+    //   } while (cursor); // Continue until no more pages
+    //   
+    //   return allCalls;
+    // }
+    // 
+    // const allCalls = await getAllCalls();
+    // console.log(`Retrieved a total of ${allCalls.length} calls`);
+    
   } catch (error) {
     console.error('Error:', error);
   }

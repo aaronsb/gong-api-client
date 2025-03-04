@@ -61,11 +61,38 @@ async function main() {
     // Note: This is a placeholder. The actual method name and parameters
     // will depend on the generated client code.
     /*
-    const calls = await gongClient.CallsService.getCalls({
-      from: sevenDaysAgo.toISOString(),
-      to: now.toISOString(),
-      limit: 10
-    });
+    // Example of cursor-based pagination
+    async function getAllCalls(fromDateTime: string, toDateTime: string) {
+      const allCalls: any[] = [];
+      let cursor: string | undefined = undefined;
+      
+      // Continue fetching pages until there's no cursor
+      do {
+        console.log(`Fetching page of calls${cursor ? ' with cursor' : ''}...`);
+        
+        // Make the API call with the cursor if available
+        const response = await gongClient.CallsService.listCalls({
+          fromDateTime,
+          toDateTime,
+          cursor
+        });
+        
+        // Add the calls from this page to our collection
+        if (response.calls && response.calls.length > 0) {
+          allCalls.push(...response.calls);
+          console.log(`Retrieved ${response.calls.length} calls (total: ${allCalls.length})`);
+        }
+        
+        // Get the cursor for the next page
+        cursor = response.records?.cursor;
+      } while (cursor);
+      
+      console.log(`Completed pagination. Retrieved ${allCalls.length} total calls.`);
+      return allCalls;
+    }
+    
+    // Get all calls using pagination
+    const calls = await getAllCalls(sevenDaysAgo.toISOString(), now.toISOString());
     
     console.log(`Found ${calls.length} calls`);
     
